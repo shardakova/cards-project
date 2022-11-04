@@ -1,0 +1,8 @@
+.form__item {
+  all: unset;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(0, 0, 0, 1);
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}

@@ -1,0 +1,21 @@
+.button_type_save {
+  margin-top: 48px;
+  background: rgba(0, 0, 0, 1);
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  min-height: 50px;
+  text-align: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 1);
+}
+
+@media screen and (max-width: 768px) {
+  .button_type_save {
+    margin-top: 45px;
+    font-size: 14px;
+    line-height: 17px;
+    min-height: 46px;
+  }
+}
