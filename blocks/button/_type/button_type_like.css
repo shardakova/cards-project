@@ -1,3 +1,7 @@
+.button_type_like:hover {
+  opacity: .5;
+}
+
 .button_type_like {
   padding: 0;
   min-width: 22px;

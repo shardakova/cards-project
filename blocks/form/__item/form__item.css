@@ -1,5 +1,11 @@
+.form__item:last-of-type {
+  margin-bottom: 0;
+}
+
 .form__item {
   all: unset;
+  margin-bottom: 30px;
+  padding-bottom: 13px;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;

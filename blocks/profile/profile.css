@@ -1,9 +1,10 @@
 .profile {
-  margin: 0 auto;
+  margin: 0;
   padding-top: 40px;
+  min-height: 120px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
 @media screen and (max-width: 768px) {

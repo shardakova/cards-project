@@ -1,3 +1,7 @@
+.button_type_save:hover {
+  background: rgba(0, 0, 0, .8);
+}
+
 .button_type_save {
   margin-top: 48px;
   background: rgba(0, 0, 0, 1);
@@ -9,6 +13,7 @@
   text-align: center;
   cursor: pointer;
   color: rgba(255, 255, 255, 1);
+  transition: background .2s ease;
 }
 
 @media screen and (max-width: 768px) {

@@ -18,10 +18,10 @@
         <img src="./images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="button button_type_edit" type="button" aria-label="Редактировать"></button>
+          <button class="button button_type_edit opacity" type="button" aria-label="Редактировать"></button>
           <p class="profile__activity">Исследователь океана</p>
         </div>
-        <button class="button button_type_add" type="button" aria-label="Добавить"></button>
+        <button class="button button_type_add opacity" type="button" aria-label="Добавить"></button>
       </section>
 
       <section class="cards">
@@ -30,41 +30,41 @@
             <img src="./images/card-karachaevsk.jpg" alt="Карачаевск" class="card__image">
             <div class="card__info">
               <h2 class="card__title">Карачаевск</h2>
-              <button class="button button_type_like" type="button" aria-label="Лайк"></button>
+              <button class="button button_type_like opacity" type="button" aria-label="Лайк"></button>
             </div></li>
           <li class="card">
             <img src="./images/card-elbrus.jpg" alt="Эльбрус" class="card__image">
             <div class="card__info">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="button button_type_like" type="button" aria-label="Лайк"></button>
+              <button class="button button_type_like opacity" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/card-dombai.jpg" alt="Домбай" class="card__image">
             <div class="card__info">
               <h2 class="card__title">Домбай</h2>
-              <button class="button button_type_like" type="button" aria-label="Лайк"></button>
+              <button class="button button_type_like opacity" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/card-elbrus.jpg" alt="Эльбрус" class="card__image">
             <div class="card__info">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="button button_type_like" type="button" aria-label="Лайк"></button>
+              <button class="button button_type_like opacity" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/card-dombai.jpg" alt="Домбай" class="card__image">
             <div class="card__info">
               <h2 class="card__title">Домбай</h2>
-              <button class="button button_type_like" type="button" aria-label="Лайк"></button>
+              <button class="button button_type_like opacity" type="button" aria-label="Лайк"></button>
             </div>
           </li>
           <li class="card">
             <img src="./images/card-karachaevsk.jpg" alt="Карачаево-Черкессия" class="card__image">
             <div class="card__info">
               <h2 class="card__title">Карачаево-Черкессия</h2>
-              <button class="button button_type_like" type="button" aria-label="Лайк"></button>
+              <button class="button button_type_like opacity" type="button" aria-label="Лайк"></button>
             </div>
           </li>
         </ul>
@@ -76,15 +76,15 @@
     </footer>
 
     <div class="popup">
-      <form class="popup__content">
-        <button class="button button_type_close" type="button" aria-label="Закрыть"></button>
+      <div class="popup__content">
+        <button class="button button_type_close opacity" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <fieldset class="form" name="profile-form">
-          <input class="form__item form__item_el_name" type="text" name="userName" placeholder="Ваше имя" value="Жак-Ив Кусто">
-          <input class="form__item form__item_el_activity" type="text" name="userActivity" placeholder="Вид деятельности" value="Исследователь океана" >
+        <form class="form" name="profile-form">
+          <input class="form__item form__item_name" type="text" name="userName" placeholder="Ваше имя" value="Жак-Ив Кусто">
+          <input class="form__item form__item_activity" type="text" name="userActivity" placeholder="Вид деятельности" value="Исследователь океана" >
           <button class="button button_type_save" type="submit">Сохранить</button>
-        </fieldset>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
   <script src="./scripts/index.js" defer></script>

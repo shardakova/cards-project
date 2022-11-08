@@ -43,5 +43,6 @@
 /* form */
 @import url('../blocks/form/form.css');
 @import url('../blocks/form/__item/form__item.css');
-@import url('../blocks/form/_el/form__item_el_name.css');
-@import url('../blocks/form/_el/form__item_el_activity.css');
+
+/* opacity */
+@import url('../blocks/opacity/opacity.css');
