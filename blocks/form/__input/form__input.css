@@ -1,8 +1,8 @@
-.form__item:last-of-type {
+.form__input:last-of-type {
   margin-bottom: 0;
 }
 
-.form__item {
+.form__input {
   all: unset;
   margin-bottom: 30px;
   padding-bottom: 13px;
