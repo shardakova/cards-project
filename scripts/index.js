@@ -15,8 +15,6 @@ const cardContainer = document.querySelector(".cards__list");
 const cardFormElem = document.querySelector('.form_type_card');
 const cardNameInput = cardFormElem.querySelector('.form__input_card_name');
 const cardLinkInput = cardFormElem.querySelector('.form__input_card_link');
-const cardName = document.querySelector('.card__title');
-const cardLink = document.querySelector('.card__image');
 //popup Image
 const popupImageElem = document.querySelector(".popup_type_image");
 const popupImage = document.querySelector(".figure__image");
@@ -24,60 +22,43 @@ const popupImageText = document.querySelector(".figure__caption");
 const buttonCloseImageElem = document.querySelector('.button_type_close');
 
 //popup Profile functions
-function openPopupProfile () {
-  popupProfileElem.classList.add('popup_opened');
-  profileNameInput.value = profileName.textContent;
-  profileJobInput.value = profileJob.textContent;
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
 }
 
-function closePopupProfile () {
-  popupProfileElem.classList.remove('popup_opened');
+function closePopup (popup) {
+  popup.classList.remove('popup_opened');
 }
 
 function profileFormSubmitHandler (evt) {
   evt.preventDefault();
-
   profileName.textContent = profileNameInput.value;
   profileJob.textContent = profileJobInput.value;
-  closePopupProfile ()
+  closePopup (popupProfileElem)
 }
 
-//popup Card functions
-function openPopupCard () {
-  popupCardElem.classList.add('popup_opened');
-  cardNameInput.value = cardName.textContent;
-  cardLinkInput.value = cardLink.textContent;
-}
-
-function closePopupCard () {
-  popupCardElem.classList.remove('popup_opened');
-}
-
-//popup Image functions
-function openPopupImage () {
-  popupImageElem.classList.add('popup_opened');
-}
-
-function closePopupImage () {
-  popupImageElem.classList.remove('popup_opened');
+function openEditProfile() {
+  openPopup(popupProfileElem);
+  profileNameInput.value = profileName.textContent;
+  profileJobInput.value = profileJob.textContent;
 }
 
 function previewImage(cardImage, cardTitle) {
   popupImage.src = cardImage;
   popupImageText.textContent = cardTitle;
   popupImage.alt = cardTitle;
-  openPopupImage();
+  openPopup(popupImageElem);
 }
 
 //profile
-buttonEditElem.addEventListener ('click', openPopupProfile);
-buttonCloseElem.addEventListener ('click', closePopupProfile);
+buttonEditElem.addEventListener ('click', openEditProfile);
+buttonCloseElem.addEventListener ('click', ()=> closePopup(popupProfileElem));
 profileFormElem.addEventListener('submit', profileFormSubmitHandler);
 //card
-buttonAddElem.addEventListener ('click', openPopupCard);
-buttonCloseCardElem.addEventListener ('click', closePopupCard);
+buttonAddElem.addEventListener ('click', ()=> openPopup(popupCardElem));
+buttonCloseCardElem.addEventListener ('click',()=>  closePopup(popupCardElem));
 //image
-buttonCloseImageElem.addEventListener ('click', closePopupImage);
+buttonCloseImageElem.addEventListener ('click', ()=> closePopup(popupImageElem));
 
 // Шаблоны
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
@@ -100,11 +81,11 @@ const generateCard = (dataCard) => {
   const link = newCard.querySelector('.card__image');
   link.src = dataCard.link;
 
-  const deleteBtn = newCard.querySelector('.button_type_del');
-  deleteBtn.addEventListener('click', handleDeleteCard)
+  const buttonDelete = newCard.querySelector('.button_type_del');
+  buttonDelete.addEventListener('click', handleDeleteCard)
 
-  const likeBtn = newCard.querySelector('.button_type_like');
-  likeBtn.addEventListener('click', handleLikeCard)
+  const buttonlike = newCard.querySelector('.button_type_like');
+  buttonlike.addEventListener('click', handleLikeCard)
 
   const cardImage = newCard.querySelector(".card__image");
   cardImage.addEventListener("click", () => previewImage(dataCard.link, dataCard.name));
@@ -118,7 +99,7 @@ const handleSubmitAddForm = (event) => {
   renderCard({ name: cardNameInput.value, link: cardLinkInput.value})
   cardNameInput.value = '';
   cardLinkInput.value = '';
-  closePopupCard();
+  closePopup(popupCardElem);
 };
 
 // Добавление карточки
