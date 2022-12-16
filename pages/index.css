@@ -21,6 +21,7 @@
 @import url('../blocks/button/_type/button_type_like_active.css');
 @import url('../blocks/button/_type/button_type_close.css');
 @import url('../blocks/button/_type/button_type_form.css');
+@import url('../blocks/button/_type/button_type_form_invalid.css');
 @import url('../blocks/button/_type/button_type_del.css');
 
 /* cards */
@@ -51,6 +52,9 @@
 /* form */
 @import url('../blocks/form/form.css');
 @import url('../blocks/form/__input/form__input.css');
+@import url('../blocks/form/__input/form__input-error.css');
+@import url('../blocks/form/__span/form__span.css');
+@import url('../blocks/form/__span/form__span-error.css');
 
 /* opacity */
 @import url('../blocks/opacity/opacity.css');

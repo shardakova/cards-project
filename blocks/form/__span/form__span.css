@@ -1,0 +1,10 @@
+.form__span:last-of-type {
+  margin-bottom: 0;
+}
+
+.form__span {
+  margin: 5px 0 13px;
+  line-height: 15px;
+  min-height: 25px;
+  box-sizing: border-box;
+}

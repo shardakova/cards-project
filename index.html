@@ -59,9 +59,25 @@
         <button class="button button_type_close opacity" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
         <form class="form form_type_card" name="profile-form">
-          <input class="form__input form__input_card_name" type="text" name="cardName" placeholder="Название" required>
-          <input class="form__input form__input_card_link" type="url" name="cardLink" placeholder="Ссылка на картинку" required>
-          <button class="button button_type_form" type="submit">Создать</button>
+          <input
+            id="card-name-input"
+            class="form__input form__input_card_name"
+            type="text"
+            name="cardName"
+            placeholder="Название"
+            minlength="2"
+            maxlength="30"
+            required>
+          <span id="card-name-input-error" class="form__span"></span>
+          <input
+            id="card-link-input"
+            class="form__input form__input_card_link"
+            type="url"
+            name="cardLink"
+            placeholder="Ссылка на картинку"
+            required>
+          <span id="card-link-input-error" class="form__span"></span>
+          <button class="button button_type_form button_type_form_invalid" type="submit">Создать</button>
         </form>
       </div>
     </div>
@@ -71,14 +87,35 @@
         <button class="button button_type_close opacity" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="form form_type_profile" name="profile-form">
-          <input class="form__input form__input_profile_name" type="text" name="userName" placeholder="Ваше имя" value="Жак-Ив Кусто" required>
-          <input class="form__input form__input_profile_job" type="text" name="userJob" placeholder="Вид деятельности" value="Исследователь океана" required>
+          <input
+            id="profile-name-input"
+            class="form__input form__input_profile_name"
+            type="text"
+            name="userName"
+            placeholder="Ваше имя"
+            value="Жак-Ив Кусто"
+            minlength="2"
+            maxlength="40"
+            required>
+          <span id="profile-name-input-error" class="form__span" ></span>
+          <input
+            id="profile-job-input"
+            class="form__input form__input_profile_job"
+            type="text"
+            name="userJob"
+            placeholder="Вид деятельности"
+            value="Исследователь океана"
+            minlength="2"
+            maxlength="200"
+            required>
+          <span id="profile-job-input-error" class="form__span form__span-error"></span>
           <button class="button button_type_form" type="submit">Сохранить</button>
         </form>
       </div>
     </div>
   </div>
   <script src="./scripts/cards.js" defer></script>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js" defer></script>
 </body>
 </html>
