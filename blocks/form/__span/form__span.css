@@ -3,8 +3,9 @@
 }
 
 .form__span {
-  margin: 5px 0 13px;
+  margin: 0;
+  padding: 0;
   line-height: 15px;
-  min-height: 25px;
+  min-height: 30px;
   box-sizing: border-box;
 }

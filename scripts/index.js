@@ -1,5 +1,3 @@
-//Modal
-let openModal;
 //popup Profile
 const popupProfileElem = document.querySelector('.popup_type_profile');
 const buttonEditElem = document.querySelector('.button_type_edit');
@@ -17,29 +15,27 @@ const cardContainer = document.querySelector(".cards__list");
 const cardFormElem = document.querySelector('.form_type_card');
 const cardNameInput = cardFormElem.querySelector('.form__input_card_name');
 const cardLinkInput = cardFormElem.querySelector('.form__input_card_link');
+const buttonCloseList = document.querySelectorAll('.button_type_close');
 //popup Image
 const popupImageElem = document.querySelector(".popup_type_image");
 const popupImage = document.querySelector(".figure__image");
 const popupImageText = document.querySelector(".figure__caption");
-const buttonCloseImageElem = document.querySelector('.button_type_close');
 
 //popup Profile functions
-function openPopup (popup) {
+const openPopup = (popup) => {
   popup.classList.add('popup_opened');
-  openModal = popup;
   document.addEventListener('keyup', closePopupEsc);
 }
 
-function closePopup (popup) {
+const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  openModal = null;
   document.removeEventListener('keyup', closePopupEsc);
 }
 
 // Закрытие popup по клику на Esc
-const closePopupEsc = (evt) => {
-  if(evt.key === 'Escape') {
-    closePopup(openModal);
+const closePopupEsc = (event) => {
+  if(event.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
   }
 }
 
@@ -47,7 +43,7 @@ const closePopupEsc = (evt) => {
 const closePopupOverlay = () => {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupElement) => {
-    popupElement.addEventListener('click', (evt)=> {
+    popupElement.addEventListener('mousedown', (evt)=> {
       if(evt.target === evt.currentTarget){
         closePopup(evt.target);
       }
@@ -55,20 +51,20 @@ const closePopupOverlay = () => {
   });
 }
 
-function profileFormSubmitHandler (evt) {
-  evt.preventDefault();
+const profileFormSubmitHandler = (event) => {
+  event.preventDefault();
   profileName.textContent = profileNameInput.value;
   profileJob.textContent = profileJobInput.value;
-  closePopup (popupProfileElem)
+  closePopup(popupProfileElem)
 }
 
-function openEditProfile() {
+const openEditProfile = () => {
   openPopup(popupProfileElem);
   profileNameInput.value = profileName.textContent;
   profileJobInput.value = profileJob.textContent;
 }
 
-function previewImage(cardImage, cardTitle) {
+const previewImage = (cardImage, cardTitle) => {
   popupImage.src = cardImage;
   popupImageText.textContent = cardTitle;
   popupImage.alt = cardTitle;
@@ -77,13 +73,15 @@ function previewImage(cardImage, cardTitle) {
 
 //profile
 buttonEditElem.addEventListener ('click', openEditProfile);
-buttonCloseElem.addEventListener ('click', ()=> closePopup(popupProfileElem));
 profileFormElem.addEventListener('submit', profileFormSubmitHandler);
 //card
 buttonAddElem.addEventListener ('click', ()=> openPopup(popupCardElem));
-buttonCloseCardElem.addEventListener ('click',()=>  closePopup(popupCardElem));
-//image
-buttonCloseImageElem.addEventListener ('click', ()=> closePopup(popupImageElem));
+
+//закрытие popup по клику на крестик
+buttonCloseList.forEach(btn => {
+  const popup = btn.closest('.popup');
+  btn.addEventListener('click', () => closePopup(popup));
+})
 
 // Шаблоны
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
@@ -94,7 +92,7 @@ const handleDeleteCard = (event) => {
 }
 
 const handleLikeCard = (event) => {
-  event.target.closest('.button_type_like').classList.toggle('button_type_like_active');
+  event.target.classList.toggle('button_type_like_active');
 }
 
 const generateCard = (dataCard) => {
@@ -122,8 +120,10 @@ const generateCard = (dataCard) => {
 const handleSubmitAddForm = (event) => {
   event.preventDefault();
   renderCard({ name: cardNameInput.value, link: cardLinkInput.value})
-  cardNameInput.value = '';
-  cardLinkInput.value = '';
+  event.target.reset();
+  const submitButton = event.submitter;
+  submitButton.classList.add('button_type_form-invalid');
+  submitButton.disabled = true;
   closePopup(popupCardElem);
 };
 

@@ -1,52 +1,55 @@
 // отобразить ошибку в инпутах
-const checkInputValidity = (input, config) => {
-  const error = document.querySelector(`#${input.id}-error`);
-  if (input.validity.valid) {
-    //убрать ошибку
-    error.textContent = '';
-    error.classList.remove(config.errorClass);
-    input.classList.remove(config.inputErrorClass);
+const showInputError = (formElement, inputElement, errorMessage, config) => {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(config.errorClass);
+  inputElement.classList.add(config.inputErrorClass);
+};
+// скрыть ошибку в инпутах
+const hideInputError = (formElement, inputElement, config) => {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  errorElement.textContent = '';
+  errorElement.classList.remove(config.errorClass);
+  inputElement.classList.remove(config.inputErrorClass);
+};
+
+// проверить валидность, показать/скрыть ошибку
+const checkInputValidity = (formElement, inputElement, config) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage, config);
   } else {
-    //показать
-    error.textContent = input.validationMessage;
-    error.classList.add(config.errorClass);
-    input.classList.add(config.inputErrorClass);
+    hideInputError(formElement, inputElement, config);
   }
+};
+
+// проверить валидность всей формы
+function isFormValid(inputList) {
+  return inputList.every(inputElement => inputElement.validity.valid);
 }
 
-// сделать кнопку неактивной
-const toggleButton = (inputs, button, config) => {
-  const isFormValid = inputs.every(input => input.validity.valid)
-
-  if(isFormValid) {
-    // раздизейблить
-    button.classList.remove(config.inactiveButtonClass)
-    button.disabled = '';
+// сделать кнопку модального окна активной/неактивной
+function toggleButtonState(inputList, buttonElement, config) {
+  if (isFormValid(inputList)) {
+    buttonElement.classList.remove(config.inactiveButtonClass)
   } else {
-    // задизейблить
-    button.classList.add(config.inactiveButtonClass)
-    button.disabled = 'disabled';
+    buttonElement.classList.add(config.inactiveButtonClass)
   }
 }
 
 // проверить валидность
 const enableValidation = (config) => {
-  const forms = [...document.querySelectorAll(config.formSelector)]
+  const formList = [...document.querySelectorAll(config.formSelector)]
 
-  forms.forEach(form => {
-    const inputs = [...form.querySelectorAll(config.inputSelector)]
-    const button = form.querySelector(config.submitButtonSelector)
+  formList.forEach(formElement => {
+    const inputList = [...formElement.querySelectorAll(config.inputSelector)]
+    const buttonElement = formElement.querySelector(config.submitButtonSelector)
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-    })
-
-    inputs.forEach(input => {
-      input.addEventListener ('input', () => {
+    inputList.forEach(inputElement => {
+      inputElement.addEventListener ('input', () => {
         // 1. показать ошибку
-        checkInputValidity(input, config);
-        // 2. задизейблить кнопку
-        toggleButton(inputs, button, config);
+        checkInputValidity(formElement, inputElement, config);
+        // 2.сделать кнопку неактивной
+        toggleButtonState(inputList, buttonElement, config);
       })
     })
   })

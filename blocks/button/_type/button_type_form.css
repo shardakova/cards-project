@@ -3,13 +3,15 @@
 }
 
 .button_type_form {
-  margin-top: 48px;
+  margin: 0;
+  padding: 0;
   background: rgba(0, 0, 0, 1);
   border-radius: 2px;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  min-height: 50px;
+  max-width: 358px;
+  height: 50px;
   text-align: center;
   cursor: pointer;
   color: rgba(255, 255, 255, 1);
