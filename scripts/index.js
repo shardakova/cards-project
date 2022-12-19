@@ -39,7 +39,7 @@ const closePopupEsc = (event) => {
 
 // Закрытие popup по клику на overlay
 const closePopupOverlay = () => {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
+  const popupList = document.querySelectorAll('.popup');
   popupList.forEach((popupElement) => {
     popupElement.addEventListener('mousedown', (evt)=> {
       if(evt.target === evt.currentTarget){

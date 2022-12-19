@@ -58,7 +58,7 @@
       <div class="popup__content">
         <button class="button button_type_close opacity" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Новое место</h3>
-        <form class="form form_type_card" name="profile-form">
+        <form class="form form_type_card" name="profile-form" novalidate>
           <input
             id="card-name-input"
             class="form__input form__input_card_name"
@@ -86,7 +86,7 @@
       <div class="popup__content">
         <button class="button button_type_close opacity" type="button" aria-label="Закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="form form_type_profile" name="profile-form">
+        <form class="form form_type_profile" name="profile-form" novalidate>
           <input
             id="profile-name-input"
             class="form__input form__input_profile_name"
@@ -97,7 +97,7 @@
             minlength="2"
             maxlength="40"
             required>
-          <span id="profile-name-input-error" class="form__span" ></span>
+          <span id="profile-name-input-error" class="form__span"></span>
           <input
             id="profile-job-input"
             class="form__input form__input_profile_job"
@@ -108,7 +108,7 @@
             minlength="2"
             maxlength="200"
             required>
-          <span id="profile-job-input-error" class="form__span form__span-error"></span>
+          <span id="profile-job-input-error" class="form__span"></span>
           <button class="button button_type_form" type="submit">Сохранить</button>
         </form>
       </div>
