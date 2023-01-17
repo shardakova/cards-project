@@ -1,23 +1,31 @@
 //popup Profile
-const popupProfileElem = document.querySelector('.popup_type_profile');
-const buttonEditElem = document.querySelector('.button_type_edit');
-const profileFormElem = document.querySelector('.form_type_profile');
-const profileNameInput = profileFormElem.querySelector('.form__input_profile_name');
-const profileJobInput = profileFormElem.querySelector('.form__input_profile_job');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__job');
-//popup Card
-const popupCardElem = document.querySelector('.popup_type_add-card');
-const buttonAddElem = document.querySelector('.button_type_add');
-const cardContainer = document.querySelector(".cards__list");
-const cardFormElem = document.querySelector('.form_type_card');
-const cardNameInput = cardFormElem.querySelector('.form__input_card_name');
-const cardLinkInput = cardFormElem.querySelector('.form__input_card_link');
-const buttonCloseList = document.querySelectorAll('.button_type_close');
-//popup Image
-const popupImageElem = document.querySelector(".popup_type_image");
-const popupImage = document.querySelector(".figure__image");
-const popupImageText = document.querySelector(".figure__caption");
+import InitialCards from "./InitialCards.js";
+import { config } from "./config.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import { popupProfileElem,
+  buttonEditElem,
+  profileFormElem,
+  profileNameInput,
+  profileJobInput,
+  profileName,
+  profileJob,
+  popupCardElem,
+  buttonAddElem,
+  cardContainer,
+  cardFormElem,
+  cardNameInput,
+  cardLinkInput,
+  buttonCloseList,
+  popupImageElem,
+  popupImage,
+  popupImageText } from "./constants.js";
+
+const cardFormValidator = new FormValidator(config, cardFormElem);
+const profileFormValidator = new FormValidator(config, profileFormElem);
+
+cardFormValidator.enableValidation();
+profileFormValidator.enableValidation();
 
 //popup Profile functions
 const openPopup = (popup) => {
@@ -46,14 +54,14 @@ const closePopupOverlay = () => {
         closePopup(evt.target);
       }
     })
-  });
-}
+  })
+};
 
 const profileFormSubmitHandler = (event) => {
   event.preventDefault();
   profileName.textContent = profileNameInput.value;
   profileJob.textContent = profileJobInput.value;
-  closePopup(popupProfileElem)
+  closePopup(popupProfileElem);
 }
 
 const openEditProfile = () => {
@@ -81,39 +89,6 @@ buttonCloseList.forEach(btn => {
   btn.addEventListener('click', () => closePopup(popup));
 })
 
-// Шаблоны
-const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
-
-// Генерация карточки
-const handleDeleteCard = (event) => {
-  event.target.closest('.card').remove();
-}
-
-const handleLikeCard = (event) => {
-  event.target.classList.toggle('button_type_like_active');
-}
-
-const generateCard = (dataCard) => {
-  const newCard = cardTemplate.cloneNode(true);
-
-  const name = newCard.querySelector('.card__title');
-  name.textContent = dataCard.name;
-
-  const link = newCard.querySelector('.card__image');
-  link.src = dataCard.link;
-
-  const buttonDelete = newCard.querySelector('.button_type_del');
-  buttonDelete.addEventListener('click', handleDeleteCard)
-
-  const buttonlike = newCard.querySelector('.button_type_like');
-  buttonlike.addEventListener('click', handleLikeCard)
-
-  const cardImage = newCard.querySelector(".card__image");
-  cardImage.addEventListener("click", () => previewImage(dataCard.link, dataCard.name));
-
-  return newCard;
-}
-
 // Обработчики событий
 const handleSubmitAddForm = (event) => {
   event.preventDefault();
@@ -126,6 +101,11 @@ const handleSubmitAddForm = (event) => {
 };
 
 // Добавление карточки
+function generateCard(dataCard) {
+  const card = new Card(dataCard, '#card-template', previewImage);
+  return card.generateCard();
+}
+
 const renderCard = (dataCard) => {
   cardContainer.prepend(generateCard(dataCard));
 };
@@ -133,9 +113,8 @@ const renderCard = (dataCard) => {
 // Рендер всех карточек
 cardFormElem.addEventListener("submit", handleSubmitAddForm);
 
-initialCards.forEach((dataCard) => {
+InitialCards.forEach((dataCard) => {
   renderCard(dataCard);
 });
-
 
 closePopupOverlay();
