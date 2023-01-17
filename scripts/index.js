@@ -1,5 +1,5 @@
 //popup Profile
-import InitialCards from "./InitialCards.js";
+import initialCards from "./initialCards.js";
 import { config } from "./config.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
@@ -62,6 +62,7 @@ const profileFormSubmitHandler = (event) => {
   profileName.textContent = profileNameInput.value;
   profileJob.textContent = profileJobInput.value;
   closePopup(popupProfileElem);
+  profileFormValidator.resetValidation();
 }
 
 const openEditProfile = () => {
@@ -81,7 +82,10 @@ const previewImage = (cardImage, cardTitle) => {
 buttonEditElem.addEventListener ('click', openEditProfile);
 profileFormElem.addEventListener('submit', profileFormSubmitHandler);
 //card
-buttonAddElem.addEventListener ('click', ()=> openPopup(popupCardElem));
+buttonAddElem.addEventListener ('click', ()=> {
+  cardFormValidator.resetValidation();
+  openPopup(popupCardElem);
+});
 
 //закрытие popup по клику на крестик
 buttonCloseList.forEach(btn => {
@@ -94,9 +98,6 @@ const handleSubmitAddForm = (event) => {
   event.preventDefault();
   renderCard({ name: cardNameInput.value, link: cardLinkInput.value})
   event.target.reset();
-  const submitButton = event.submitter;
-  submitButton.classList.add('button_type_form-invalid');
-  submitButton.disabled = true;
   closePopup(popupCardElem);
 };
 
@@ -113,7 +114,7 @@ const renderCard = (dataCard) => {
 // Рендер всех карточек
 cardFormElem.addEventListener("submit", handleSubmitAddForm);
 
-InitialCards.forEach((dataCard) => {
+initialCards.forEach((dataCard) => {
   renderCard(dataCard);
 });
 

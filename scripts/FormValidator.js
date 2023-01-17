@@ -51,21 +51,25 @@ export default class FormValidator {
   }
 
   // проверить валидность
-  enableValidation = () => {
-    const formList = [...document.querySelectorAll(this._formSelector)]
+  enableValidation() {
+    this._inputList = [...this._formElement.querySelectorAll(this._inputSelector)];
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
-    formList.forEach(() => {
-      this._inputList = [...this._formElement.querySelectorAll(this._inputSelector)]
-      this._buttonElement = this._formElement.querySelector(this._submitButtonSelector)
-
-      this._inputList.forEach((inputElement) => {
-        inputElement.addEventListener ('input', () => {
-          // 1. показать ошибку
-          this._checkInputValidity(inputElement);
-          // 2.сделать кнопку неактивной
-          this._toggleButtonState();
-        })
+    this._inputList.forEach((inputElement) => {
+      inputElement.addEventListener ('input', () => {
+        // 1. показать ошибку
+        this._checkInputValidity(inputElement);
+        // 2.сделать кнопку неактивной
+        this._toggleButtonState();
       })
     })
+  }
+
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
   }
 }
