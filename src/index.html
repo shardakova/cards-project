@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
   <title>Место</title>
 </head>
 
 <body class="body">
   <div class="page">
     <header class="header">
-      <img src="./images/header-logo.svg" alt="Логотип сайта" class="header__logo">
+      <img src="images/header-logo.svg" alt="Логотип сайта" class="header__logo">
     </header>
 
     <main class="content">
       <section class="profile">
-        <img src="./images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
+        <img src="images/avatar.jpg" alt="Аватар пользователя" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="button button_type_edit opacity" type="button" aria-label="Редактировать"></button>
@@ -48,7 +47,7 @@
       <div class="popup__image-container">
         <button class="button button_type_close opacity" type="button" aria-label="Закрыть"></button>
         <figure class="figure">
-          <img class="figure__image" src="./images/card-karachaevsk.jpg" alt="Карачаево-Черкессия">
+          <img class="figure__image" src="images/card-karachaevsk.jpg" alt="Карачаево-Черкессия">
           <figcaption class="figure__caption">Название места</figcaption>
         </figure>
       </div>
@@ -93,7 +92,6 @@
             type="text"
             name="userName"
             placeholder="Ваше имя"
-            value="Жак-Ив Кусто"
             minlength="2"
             maxlength="40"
             required>
@@ -104,7 +102,6 @@
             type="text"
             name="userJob"
             placeholder="Вид деятельности"
-            value="Исследователь океана"
             minlength="2"
             maxlength="200"
             required>
@@ -114,6 +111,5 @@
       </div>
     </div>
   </div>
-  <script type="module" src="./scripts/index.js" defer></script>
 </body>
 </html>

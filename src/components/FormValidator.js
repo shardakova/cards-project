@@ -34,12 +34,12 @@ export default class FormValidator {
     }
   };
 
-// проверить валидность всей формы
+  // проверить валидность всей формы
   _isFormValid() {
     return this._inputList.every((inputElement) => inputElement.validity.valid);
   }
 
-// сделать кнопку модального окна активной/неактивной
+  // сделать кнопку модального окна активной/неактивной
   _toggleButtonState() {
     if (this._isFormValid()) {
       this._buttonElement.classList.remove(this._inactiveButtonClass)
