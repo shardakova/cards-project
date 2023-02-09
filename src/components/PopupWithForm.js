@@ -1,34 +1,44 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-  constructor(selector, onSubmitForm, formValidator) {
+  constructor(selector, submitForm, formValidator) {
     super(selector);
     this._formElement = this._popupElement.querySelector('form');
-    this._onSubmitForm = onSubmitForm;
-    this._onSubmitFormHandler = this._handleFormSubmit.bind(this);
+    // достаём все элементы полей
+    this._inputList = this._popupElement.querySelectorAll('.form__input');
+    this._handleSubmitForm = submitForm;
     this._formValidator = formValidator;
   }
 
   open() {
     super.open();
     this._formValidator.resetValidation();
+  }
+
+  close() {
+    super.close();
     this._formElement.reset();
+    this._formValidator.resetValidation();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._formElement.addEventListener('submit', this._onSubmitFormHandler);
+    this._formElement.addEventListener('submit', event => {
+      event.preventDefault();
+      this._handleSubmitForm(this._getInputValues());
+    });
   }
 
-  removeEventListeners() {
-    super.removeEventListeners();
-    this._formElement.removeEventListener('submit', this._onSubmitFormHandler);
-  }
+  _getInputValues() {
+    // создаём пустой объект
+    this._formValues = {};
 
-  _handleFormSubmit(event) {
-    event.preventDefault();
-    this._onSubmitForm(this._formElement.elements);
-    this._formValidator.resetValidation();
-    this._formElement.reset();
+    // добавляем в этот объект значения всех полей
+    this._inputList.forEach(input => {
+      this._formValues[input.name] = input.value;
+    });
+
+    // возвращаем объект значений
+    return this._formValues;
   }
 }

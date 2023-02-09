@@ -5,14 +5,13 @@ export default class Section {
     this._container = container;
   }
 
-  render() {
+  renderItems() {
     this._items.forEach(card => {
-      this._container.prepend(this._renderer(card));
+      this._container.append(this._renderer(card));
     });
   }
 
   addItem(card) {
-    this._items.push(card);
     this._container.prepend(this._renderer(card));
   }
 }
