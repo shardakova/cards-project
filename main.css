@@ -443,10 +443,46 @@ template {
   }
 }
 
-.profile__avatar {
+.profile__overlay:hover > .profile__avatar-button {
+  visibility: visible;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.profile__overlay {
   width: 120px;
   height: 120px;
+  position: relative;
   border-radius: 50%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__overlay {
+    margin-right: 0;
+  }
+}
+
+
+.profile__avatar {
+  width: 120px;
+}
+
+.profile__avatar-button {
+  margin: auto;
+  position: absolute;
+  border: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url(a086f758840ae814ecde.svg);
+  background-color: rgba(0, 0, 0, 0.8);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .profile__info {
@@ -496,7 +532,7 @@ template {
   }
 }
 
-.profile__job {
+.profile__about {
   margin: 0;
   max-width: 500px;
   font-weight: 400;
@@ -508,7 +544,7 @@ template {
 }
 
 @media screen and (max-width: 1024px) {
-  .profile__job {
+  .profile__about {
     max-width: 350px;
   }
 }
@@ -695,7 +731,10 @@ template {
   position: absolute;
   top: 20px;
   right: 20px;
+}
 
+.button_type_del-hidden {
+  display: none;
 }
 
 .cards {
@@ -753,6 +792,21 @@ template {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.card__like {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: rgba(0, 0, 0, 1);
+}
+
+.card__like_counter {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  align-self: center;
+  color: inherit;
 }
 
 .footer {
