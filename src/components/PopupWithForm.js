@@ -1,8 +1,7 @@
 import Popup from './Popup.js';
-import {config} from "../utils/config";
 
 export default class PopupWithForm extends Popup {
-  constructor(selector, submitForm, formValidator) {
+  constructor (selector, submitForm, formValidator) {
     super(selector);
     this._formElement = this._popupElement.querySelector('form');
     // достаём все элементы полей
@@ -13,18 +12,17 @@ export default class PopupWithForm extends Popup {
     this._formButtonText = this._formButton.textContent;
   }
 
-  open() {
+  open () {
     super.open();
     this._formValidator.resetValidation();
   }
 
-  close() {
+  close () {
     super.close();
     this._formElement.reset();
-    this._formValidator.resetValidation();
   }
 
-  setEventListeners() {
+  setEventListeners () {
     super.setEventListeners();
     this._formElement.addEventListener('submit', event => {
       event.preventDefault();
@@ -32,7 +30,7 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  _getInputValues() {
+  _getInputValues () {
     // создаём пустой объект
     this._formValues = {};
 
@@ -45,14 +43,12 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  setIsFormSaving(isFormSaving, savingText) {
+  setIsFormSaving (isFormSaving, savingText) {
     if (isFormSaving) {
-      this._formButton.textContent = savingText ? savingText : 'Сохранение...'
-      this._formButton.classList.add(config.inactiveButtonClass)
+      this._formButton.textContent = savingText || 'Сохранение...';
       this._formButton.disabled = true;
     } else {
       this._formButton.textContent = this._formButtonText;
-      this._formButton.classList.remove(config.inactiveButtonClass)
       this._formButton.disabled = false;
     }
   }

@@ -1,5 +1,5 @@
 export default class FormValidator {
-  constructor(config, formElement) {
+  constructor (config, formElement) {
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
@@ -14,7 +14,7 @@ export default class FormValidator {
     this._errorElement.textContent = errorMessage;
     this._errorElement.classList.add(this._errorClass);
     inputElement.classList.add(this._inputErrorClass);
-  }
+  };
 
   // скрыть ошибку в инпутах
   _hideInputError = inputElement => {
@@ -34,23 +34,23 @@ export default class FormValidator {
   };
 
   // проверить валидность всей формы
-  _isFormValid() {
+  _isFormValid () {
     return this._inputList.every(inputElement => inputElement.validity.valid);
   }
 
   // сделать кнопку модального окна активной/неактивной
-  _toggleButtonState() {
+  _toggleButtonState () {
     if (this._isFormValid()) {
-      this._buttonElement.classList.remove(this._inactiveButtonClass)
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
     } else {
-      this._buttonElement.classList.add(this._inactiveButtonClass)
+      this._buttonElement.classList.add(this._inactiveButtonClass);
       this._buttonElement.disabled = true;
     }
   }
 
   // проверить валидность
-  enableValidation() {
+  enableValidation () {
     this._inputList = [...this._formElement.querySelectorAll(this._inputSelector)];
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
@@ -64,7 +64,7 @@ export default class FormValidator {
     });
   }
 
-  resetValidation() {
+  resetValidation () {
     this._toggleButtonState();
 
     this._inputList.forEach(inputElement => {

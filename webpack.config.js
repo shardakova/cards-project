@@ -24,7 +24,7 @@ module.exports = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: '/node_modules/',
+        exclude: '/node_modules/'
       },
       {
         test: /\.css$/,
@@ -33,26 +33,26 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 1,
-            },
+              importLoaders: 1
+            }
           }
-        ],
+        ]
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
+        loader: 'html-loader'
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|woff(2)?|eot|ttf|otf)$/,
-        type: 'asset/resource',
-      },
+        type: 'asset/resource'
+      }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/index.html'
     }),
-    new MiniCssExtractPlugin(),
-  ],
-}
+    new MiniCssExtractPlugin()
+  ]
+};

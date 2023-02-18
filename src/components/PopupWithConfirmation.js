@@ -1,16 +1,19 @@
-import Popup from "./Popup";
-import {config} from "../utils/config";
+import Popup from './Popup';
 
 export default class PopupWithConfirmation extends Popup {
-  constructor(selector, submitForm) {
+  constructor (selector) {
     super(selector);
     this._formElement = this._popupElement.querySelector('form');
-    this._handleSubmitForm = submitForm;
     this._formButton = this._popupElement.querySelector('.button_type_form');
     this._formButtonText = this._formButton.textContent;
   }
 
-  setEventListeners() {
+  open (submitForm) {
+    super.open();
+    this._handleSubmitForm = submitForm;
+  }
+
+  setEventListeners () {
     super.setEventListeners();
     this._formElement.addEventListener('submit', event => {
       event.preventDefault();
@@ -18,14 +21,12 @@ export default class PopupWithConfirmation extends Popup {
     });
   }
 
-  setIsLoading(isLoading, loadingText) {
+  setIsLoading (isLoading, loadingText) {
     if (isLoading) {
-      this._formButton.textContent = loadingText ? loadingText : 'Загрузка...';
-      this._formButton.classList.add(config.inactiveButtonClass);
+      this._formButton.textContent = loadingText || 'Загрузка...';
       this._formButton.disabled = true;
     } else {
       this._formButton.textContent = this._formButtonText;
-      this._formButton.classList.remove(config.inactiveButtonClass);
       this._formButton.disabled = false;
     }
   }

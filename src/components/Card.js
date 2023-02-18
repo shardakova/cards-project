@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(item, templateSelector, showPreviewImage, deleteCard, likeCard) {
+  constructor (item, templateSelector, showPreviewImage, deleteCard, likeCard) {
     this._id = item._id;
     this._name = item.name;
     this._link = item.link;
@@ -12,7 +12,7 @@ export default class Card {
     this._handleLikeCard = likeCard;
   }
 
-  _getTemplate() {
+  _getTemplate () {
     return document
       .querySelector(this._templateSelector)
       .content
@@ -20,13 +20,13 @@ export default class Card {
       .cloneNode(true);
   }
 
-  _setEventListeners() {
-    this._deleteButton.addEventListener('click', () => this._handleDeleteCard());
+  _setEventListeners () {
+    this._deleteButton.addEventListener('click', this._handleDeleteCard);
     this._likeButton.addEventListener('click', () => this._handleLikeCard());
     this._cardImage.addEventListener('click', () => this._showPreviewImage(this._name, this._link));
   }
 
-  generateCard() {
+  generateCard () {
     this._element = this._getTemplate();
     this._deleteButton = this._element.querySelector('.button_type_del');
     this._likeButton = this._element.querySelector('.button_type_like');
@@ -35,7 +35,6 @@ export default class Card {
     this._likesCountElement = this._element.querySelector('.card__like_counter');
     this.setLikesCount(this._likesCount);
     this.setHasMyLike(this._hasMyLike);
-
 
     if (!this._canBeDeleted) {
       this._deleteButton.classList.add('button_type_del-hidden');
@@ -50,16 +49,16 @@ export default class Card {
     return this._element;
   }
 
-  setLikesCount(count) {
+  setLikesCount (count) {
     this._likesCount = count;
     this._likesCountElement.textContent = count;
   }
 
-  getHasMyLike() {
+  getHasMyLike () {
     return this._hasMyLike;
   }
 
-  setHasMyLike(hasMyLike) {
+  setHasMyLike (hasMyLike) {
     this._hasMyLike = hasMyLike;
     if (this._hasMyLike) {
       this._likeButton.classList.add('button_type_like_active');
@@ -68,7 +67,7 @@ export default class Card {
     }
   }
 
-  remove() {
+  remove () {
     this._element.remove();
     this._element = null;
   }

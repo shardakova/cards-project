@@ -7,7 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
-import Api from "../components/Api";
+import Api from '../components/Api';
 
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-59',
@@ -33,72 +33,67 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       canBeDeleted: card.owner._id === user._id
     }));
 
+    const confirmationPopup = new PopupWithConfirmation('.popup_type_confirmation');
+    confirmationPopup.setEventListeners();
+
     const section = new Section({
-        items: initialCards,
-        renderer: item => {
-          const card = new Card(
-            item,
-            '#card-template',
-            (imageTitle, imageSrc) => {
-              imagePopup.open(imageTitle, imageSrc);
-            },
-            () => {
-              const confirmationPopup = new PopupWithConfirmation('.popup_type_confirmation', () => {
-                confirmationPopup.setIsLoading(true, 'Удаление...');
-                setTimeout(() => {
-                  api.deleteCard(item._id).then(() => {
-                    card.remove();
-                    confirmationPopup.setIsLoading(false);
-                    confirmationPopup.close();
-                  }).catch(err => {
-                    console.error(err);
-                    confirmationPopup.setIsLoading(false);
-                    confirmationPopup.close();
-                  });
-                }, 1500);
-              });
-              confirmationPopup.setEventListeners();
-              confirmationPopup.open();
-            },
-            () => {
-              api[card.getHasMyLike() ? 'deleteLike' : 'setLike'](item._id).then(response => {
-                card.setLikesCount(response.likes.length);
-                card.setHasMyLike(!!response.likes.find(like => like._id === user._id));
+      items: initialCards,
+      renderer: item => {
+        const card = new Card(
+          item,
+          '#card-template',
+          (imageTitle, imageSrc) => {
+            imagePopup.open(imageTitle, imageSrc);
+          },
+          () => {
+            confirmationPopup.open(() => {
+              confirmationPopup.setIsLoading(true, 'Удаление...');
+              api.deleteCard(item._id).then(() => {
+                card.remove();
+                confirmationPopup.close();
               }).catch(err => {
                 console.error(err);
+              }).finally(() => {
+                confirmationPopup.setIsLoading(false);
               });
-            }
-          );
-          return card.generateCard();
-        }
-      },
-      document.querySelector('.cards__list')
+            });
+          },
+          () => {
+            api[card.getHasMyLike() ? 'deleteLike' : 'setLike'](item._id).then(response => {
+              card.setLikesCount(response.likes.length);
+              card.setHasMyLike(!!response.likes.find(like => like._id === user._id));
+            }).catch(err => {
+              console.error(err);
+            });
+          }
+        );
+        return card.generateCard();
+      }
+    },
+    document.querySelector('.cards__list')
     );
     section.renderItems();
 
     const cardPopup = new PopupWithForm('.popup_type_add-card', elements => {
       cardPopup.setIsFormSaving(true);
-      setTimeout(() => {
-        api.addCard({
-          name: elements.cardName,
-          link: elements.cardLink
-        }).then(response => {
-          section.addItem({
-            _id: response._id,
-            name: response.name,
-            link: response.link,
-            likesCount: response.likes.length,
-            hasMyLike: response.likes.find(like => like._id === user._id),
-            canBeDeleted: response.owner._id === user._id
-          });
-          cardPopup.setIsFormSaving(false);
-          cardPopup.close();
-        }).catch(err => {
-          console.error(err);
-          cardPopup.setIsFormSaving(false);
-          cardPopup.close();
+      api.addCard({
+        name: elements.cardName,
+        link: elements.cardLink
+      }).then(response => {
+        section.addItem({
+          _id: response._id,
+          name: response.name,
+          link: response.link,
+          likesCount: response.likes?.length,
+          hasMyLike: response.likes?.find(like => like._id === user._id),
+          canBeDeleted: response.owner?._id === user._id
         });
-      }, 1500);
+        cardPopup.close();
+      }).catch(err => {
+        console.error(err);
+      }).finally(() => {
+        cardPopup.setIsFormSaving(false);
+      });
     }, formValidators['card-form']);
     cardPopup.setEventListeners();
 
@@ -134,23 +129,16 @@ const userInfo = new UserInfo({
 
 const avatarPopup = new PopupWithForm('.popup_type_avatar', elements => {
   avatarPopup.setIsFormSaving(true);
-  setTimeout(() => {
-    api.updateAvatar({
-      avatar: elements.userAvatar
-    }).then(response => {
-      userInfo.setUserInfo({
-        name: response.name,
-        about: response.about,
-        avatar: response.avatar
-      });
-      avatarPopup.setIsFormSaving(false);
-      avatarPopup.close();
-    }).catch(err => {
-      console.error(err);
-      avatarPopup.setIsFormSaving(false);
-      avatarPopup.close();
-    });
-  }, 1500);
+  api.updateAvatar({
+    avatar: elements.userAvatar
+  }).then(response => {
+    userInfo.setUserInfo(response);
+    avatarPopup.close();
+  }).catch(err => {
+    console.error(err);
+  }).finally(() => {
+    avatarPopup.setIsFormSaving(false);
+  });
 }, formValidators['avatar-form']);
 avatarPopup.setEventListeners();
 
@@ -160,24 +148,17 @@ document.querySelector('.profile__avatar-button').addEventListener('click', () =
 
 const profilePopup = new PopupWithForm('.popup_type_profile', elements => {
   profilePopup.setIsFormSaving(true);
-  setTimeout(() => {
-    api.setUserInfo({
-      name: elements.userName,
-      about: elements.userAbout
-    }).then(response => {
-      userInfo.setUserInfo({
-        name: response.name,
-        about: response.about,
-        avatar: response.avatar
-      });
-      profilePopup.setIsFormSaving(false);
-      profilePopup.close();
-    }).catch(err => {
-      console.error(err);
-      profilePopup.setIsFormSaving(false);
-      profilePopup.close();
-    });
-  }, 1500);
+  api.setUserInfo({
+    name: elements.userName,
+    about: elements.userAbout
+  }).then(response => {
+    userInfo.setUserInfo(response);
+    profilePopup.close();
+  }).catch(err => {
+    console.error(err);
+  }).finally(() => {
+    profilePopup.setIsFormSaving(false);
+  });
 }, formValidators['profile-form']);
 profilePopup.setEventListeners();
 
